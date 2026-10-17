@@ -29,14 +29,15 @@ Windows PowerShell 激活命令：`.venv\Scripts\Activate.ps1`。
 
 ## 开发路线
 
-当前阶段：第 0 章，初始化项目和准备开发环境。
+当前阶段：第 2、3 章已完成，售卖工具和自定义掷骰子工具均已接入。
 
-1. 第 1 章：在 `1_strands_basics/simple_agent.py` 创建名为 **fours Agent** 的首个智能体，设置系统提示词和调用入口。
-2. 第 2–3 章：接入内置工具与自定义工具。
-3. 第 4–5 章：接入 MCP 和 A2A 多智能体协作。
-4. 第 6–7 章：Web 界面与 Strands harness。
+1. 第 1 章：在 `1_strands_basics/simple_agent.py` 创建首个智能体，设置系统提示词和调用入口。
+2. 第 2 章：`http_request` 查询 D&D 5e API；奖励任务加入受 HumanInTheLoop 保护的文件和 shell 工具。
+3. 第 3 章：`@tool` 自定义 `roll_dice`，用 4d6 drop lowest 生成能力值。
+4. 第 4–5 章：接入 MCP 和 A2A 多智能体协作。
+5. 第 6–7 章：Web 界面与 Strands harness。
 
-章节代码保留工作坊的 TODO，后续按章节完成。当前环境检查通过不代表云端模型调用已经验证。
+未完成章节保留工作坊的 TODO，后续按章节完成。当前本地工具验证通过不代表云端模型调用已经验证。
 
 ## 上游来源
 
