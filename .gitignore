@@ -99,11 +99,7 @@ ipython_config.py
 #   install all needed dependencies.
 #Pipfile.lock
 
-# UV
-# This workshop deliberately does NOT track uv.lock: each participant runs `uv sync` once
-# and installs against the latest compatible versions of the SDK. This keeps the workshop
-# aligned with the current Strands API instead of freezing an ever-aging snapshot.
-uv.lock
+# Commit uv.lock so all developers use the same dependency versions.
 
 # poetry
 #   Similar to Pipfile.lock, it is generally recommended to include poetry.lock in version control.
@@ -215,3 +211,7 @@ dnd_knowledge_base/
 
 # Strands harness state (chapter 7): sessions and long-term memory
 .agent/
+
+# Local credentials
+.env.*
+!.env.example

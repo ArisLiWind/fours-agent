@@ -1,7 +1,7 @@
 [project]
-name = "once-upon-agentic-ai"
+name = "fours-agent"
 version = "1.0.0"
-description = "A comprehensive workshop for mastering AI agent development with Strands framework"
+description = "fours Agent: AI agent development with the Strands SDK"
 requires-python = ">=3.10"
 dependencies = [
     # Strands Harness SDK — floor pinned to the release the workshop instructions were

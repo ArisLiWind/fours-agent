@@ -1,66 +1,43 @@
-# Once Upon Agentic AI: A Developer's Epic Journey into the Strands SDK
+# fours Agent
 
-![Header Image](images/home.png)
+基于 AWS [Once Upon Agentic AI](https://github.com/aws-samples/sample-once-upon-agentic-ai) 工作坊，使用 Strands SDK 逐步开发 AI Agent。
 
-_"Roll for Initiative... in Python!"_
+## 开发环境
 
-A hands-on workshop that teaches the [Strands Agents SDK](https://strandsagents.com/) by building a Dungeons & Dragons Game Master: one agent first, then tools, an MCP server, remote agents over A2A, a web interface, and finally the same system rebuilt with Strands harness.
+- Python：3.13.5（由 `.python-version` 固定，与工作坊一致）
+- 包管理器：uv
+- 虚拟环境：项目内 `.venv`
+- 依赖：`pyproject.toml` 声明，`uv.lock` 锁定可复现版本
 
-**The instructions live in the AWS workshop: [Once Upon Agentic AI](https://catalog.us-east-1.prod.workshops.aws/workshops/e1493217-4bc7-42f4-87d9-e231acd743bc/en-US/0-pre-requisites).** This repository holds the code you complete along the way: each chapter folder contains files with `# TODO` markers that the workshop walks you through.
-
-## Quick Start
-
-```bash
-git clone https://github.com/aws-samples/sample-once-upon-agentic-ai.git
-cd sample-once-upon-agentic-ai
-uv python install          # if you don't have Python yet (3.10+)
-uv sync                    # creates .venv/ with every dependency
-source .venv/bin/activate  # .venv\Scripts\activate on Windows
-```
-
-No `uv`? Install it from [docs.astral.sh/uv](https://docs.astral.sh/uv/getting-started/installation/), or use plain pip: `pip install .` from the repository root.
-
-The agents run on Amazon Bedrock by default (Claude Sonnet 4.6; chapter 7 uses Claude Opus 5). You need AWS credentials with access to those models, see [Chapter 0](https://catalog.us-east-1.prod.workshops.aws/workshops/e1493217-4bc7-42f4-87d9-e231acd743bc/en-US/0-pre-requisites).
-
-## The Adventure Map
-
-| Chapter | Folder | What you build |
-|---|---|---|
-| 0. An Unexpected Adventure | [instructions](https://catalog.us-east-1.prod.workshops.aws/workshops/e1493217-4bc7-42f4-87d9-e231acd743bc/en-US/0-pre-requisites) | Set up Python, uv and this repository |
-| 1. The Art of Agent Summoning | [`1_strands_basics/`](1_strands_basics/) | Your first agent, a system prompt, debug logs |
-| 2. The Adventurer's Arsenal - Vended Tools | [`2_vended_tools/`](2_vended_tools/) | Tools that ship with the SDK (vended tools): `http_request` on the D&D 5e API; bonus: `shell` + `file_editor` gated by `HumanInTheLoop` |
-| 3. The Art of Magical Forging | [`3_custom_tools/`](3_custom_tools/) | Your own `@tool`: the dice roller |
-| 4. Planar Portals - MCP | [`4_mcp_integration/`](4_mcp_integration/) | The same dice roller served over MCP, and an agent that consumes it |
-| 5. The Grand Alliance - A2A | [`5_a2a_integration/`](5_a2a_integration/) | Rules Agent + Character Agent over A2A, a Game Master orchestrator with structured output |
-| 6. Web Interface Testing | [web UI](https://aws-samples.github.io/sample-once-upon-agentic-ai/) | Play with your Game Master through the browser |
-| 7. The Enchanted Armour - Strands harness | [`7_strands_harness/`](7_strands_harness/) | The Game Master API rebuilt with `create_harness()` |
-| Final cleanup | [instructions](https://catalog.us-east-1.prod.workshops.aws/workshops/e1493217-4bc7-42f4-87d9-e231acd743bc/en-US/cleanup) | Stop your services and delete the generated files |
-
-Complete the chapters in order: each one reuses what the previous one built.
-
-## Branches
-
-- `main`: the skeleton you clone, with `# TODO` markers to fill in.
-- `solution-*`: the same files with the answers written below each TODO. Use the latest one if you get stuck.
-
-## Dependencies
-
-The workshop ships no lockfile (`uv.lock` is gitignored), so `uv sync` installs the latest compatible releases. Three bounds are pinned in `pyproject.toml`, each with a comment explaining why: a floor on `strands-agents` (the release the instructions were written against), `strands-harness` for chapter 7, and a `mcp<2` ceiling because mcp 2.0 renamed the `FastMCP` and `streamablehttp_client` symbols chapters 4 and 5 teach. If a chapter breaks against a newer release, please open an issue.
-
-## Tests
+首次安装 uv 请参考 [官方安装说明](https://docs.astral.sh/uv/getting-started/installation/)。macOS / Linux：
 
 ```bash
-uv run pytest tests/
+export PATH="$HOME/.local/bin:$PATH"
+git clone https://github.com/ArisLiWind/fours-agent.git
+cd fours-agent
+uv python install
+uv sync --locked
+source .venv/bin/activate
+python scripts/check_environment.py
 ```
 
-The tests cover the chapter 5 A2A servers: module imports, the per-context `agent_factory` isolation, and the agent card served over HTTP.
+Windows PowerShell 激活命令：`.venv\Scripts\Activate.ps1`。
 
-## Contributing
+每次打开新终端，需要重新进入项目目录并激活虚拟环境；也可以直接使用 `uv run python scripts/check_environment.py`。
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
+环境检查只验证 Python、虚拟环境和依赖导入，不调用模型，也不需要 AWS 凭证。正式调用工作坊默认的 Amazon Bedrock 模型前，需要配置 AWS 凭证和对应模型访问权限，请勿将凭证提交到 Git。
 
----
+## 开发路线
 
-_"The best way to predict the future is to build the agents that will create it."_ - Modern Developer Wisdom
+当前阶段：第 0 章，初始化项目和准备开发环境。
 
-_Happy coding, Agent Master! 🐉⚔️🧙‍♂️_
+1. 第 1 章：在 `1_strands_basics/simple_agent.py` 创建名为 **fours Agent** 的首个智能体，设置系统提示词和调用入口。
+2. 第 2–3 章：接入内置工具与自定义工具。
+3. 第 4–5 章：接入 MCP 和 A2A 多智能体协作。
+4. 第 6–7 章：Web 界面与 Strands harness。
+
+章节代码保留工作坊的 TODO，后续按章节完成。当前环境检查通过不代表云端模型调用已经验证。
+
+## 上游来源
+
+保留上游 Git 历史与许可证。`origin` 指向本项目；本地 `upstream` 指向 AWS 示例仓库。原始工作坊说明保存在 [docs/UPSTREAM_README.md](docs/UPSTREAM_README.md)，其中路径相对于仓库根目录。
