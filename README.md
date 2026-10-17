@@ -29,16 +29,17 @@ Windows PowerShell 激活命令：`.venv\Scripts\Activate.ps1`。
 
 ## 开发路线
 
-当前阶段：第 2–4 章已完成，售卖工具、自定义工具和 MCP 骰子服务均已接入。
+当前阶段：第 1–7 章代码已完成，清理说明和本地 Web 测试流程已整理。
 
 1. 第 1 章：在 `1_strands_basics/simple_agent.py` 创建首个智能体，设置系统提示词和调用入口。
 2. 第 2 章：`http_request` 查询 D&D 5e API；奖励任务加入受 HumanInTheLoop 保护的文件和 shell 工具。
 3. 第 3 章：`@tool` 自定义 `roll_dice`，用 4d6 drop lowest 生成能力值。
 4. 第 4 章：用 FastMCP 暴露远程 `roll_dice` 服务，并由 Strands MCP 客户端连接。
-5. 第 5 章：接入 A2A 多智能体协作。
-6. 第 6–7 章：Web 界面与 Strands harness。
+5. 第 5 章：Rules Agent、Character Agent 通过 A2A 暴露，Game Master 负责协调。
+6. 第 6 章：通过 [Web 测试指南](docs/CHAPTER_6_WEB_TESTING.md) 连接本地协调器。
+7. 第 7 章：Harness 版本启用 MCP、A2A、命名会话和结构化输出。
 
-未完成章节保留工作坊的 TODO，后续按章节完成。当前本地工具验证通过不代表云端模型调用已经验证。
+核心章节代码已完成；后续可在现有工具、代理和 Web API 上继续扩展。当前本地工具验证通过不代表云端模型调用已经验证。
 
 ## 上游来源
 

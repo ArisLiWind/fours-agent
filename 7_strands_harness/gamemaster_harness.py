@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field
 from tinydb import TinyDB, Query
 from typing import List
 from strands.vended_tools import make_a2a_client
-# TODO: Step 1 - Import create_harness from strands_harness
+from strands_harness import create_harness
 
 app = FastAPI(title="D&D Game Master API (Strands harness)")
 app.add_middleware(
@@ -31,7 +31,7 @@ class StoryOutput(BaseModel):
     response: str = Field(description="Your narative response as Game Master")
     actions_suggestions: list[str] = Field(description="['Action 1', 'Action 2', 'Action 3']")
     details: str = Field(description="Brief summary of tools/agents used")
-    dice_rolls: List[DiceOutput] = Field(default=[], description="List of dice rolls with dice_type, result, and reason")
+    dice_rolls: List[DiceOutput] = Field(default_factory=list, description="List of dice rolls with dice_type, result, and reason")
 
 # Domain instructions only: Strands harness prepends its own behavioral contract.
 INSTRUCTIONS = """You are a D&D Game Master. Never make up what a tool can tell you.
@@ -46,12 +46,13 @@ a2a_client = make_a2a_client(allowed_endpoints=[
 ])
 
 agent = create_harness(
-    # TODO: Step 1 - Pass the INSTRUCTIONS to the harness
-    # TODO: Step 2 - Add the dice MCP server {"dice": {"url": "http://127.0.0.1:8002/mcp"}} to mcp_servers
-    # TODO: Step 3 - Add the a2a_client tool to the harness
-    # TODO: Step 4 - Disable the built-in tools
-    # TODO: Step 5 - Name the session "dnd-campaign"
-    # TODO: Step 6 - Force the response to use the StoryOutput model
+    instructions=INSTRUCTIONS,
+    mcp_servers={"dice": {"url": "http://127.0.0.1:8002/mcp"}},
+    tools=[a2a_client],
+    builtin_tools=[],
+    # Current Harness releases use a mapping for a named persistent session.
+    session={"id": "dnd-campaign"},
+    structured_output_model=StoryOutput,
 )
 
 @app.get("/health")

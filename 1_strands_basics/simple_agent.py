@@ -1,7 +1,10 @@
+import logging
+
 from strands import Agent
 
-# TODO: Step 1 - Add debug logging to see what your agent is thinking
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 
-# TODO: Step 2 - Create the agent with the following system prompt: "You are a game master for a Dungeon & Dragon game"
+agent = Agent(system_prompt="You are a game master for a Dungeon & Dragon game")
 
-# TODO: Step 3 - Invoke your agent with a basic query such as "Hi, I am an adventurer ready for adventure!"
+if __name__ == "__main__":
+    agent("Hi, I am an adventurer ready for adventure!")
